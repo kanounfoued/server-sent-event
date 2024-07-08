@@ -1,0 +1,14 @@
+{
+  "name": "server-sent-event",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kanounfoued/server-sent-event.git",
+  "author": "= <foued.kanoun@openinovation.ai>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "scripts": {
+    "dev": "node index.js"
+  }
+}
