@@ -11,6 +11,29 @@ app.get("/", (_, res) => {
   res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
+app.get("/sse", (req, res) => {
+  res.writeHead(200, {
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache",
+    Connection: "keep-alive",
+  });
+
+  const sendData = (data) => {
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+  };
+
+  // Simulate SSE data
+  const intervalId = setInterval(() => {
+    const message = `Server Time: ${new Date().toLocaleTimeString()}`;
+    sendData({ message });
+  }, 1000);
+
+  // Close SSE connection when the client disconnects
+  req.on("close", () => {
+    clearInterval(intervalId);
+  });
+});
+
 app.listen(PORT, (error) => {
   if (!error)
     console.log(
