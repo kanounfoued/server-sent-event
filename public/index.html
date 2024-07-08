@@ -13,16 +13,20 @@
       const sse_button = document.querySelector("#sse-button");
 
       sse_button.addEventListener("click", () => {
+        const content = document.querySelector(".content");
+
+        if (typeof EventSource === undefined) {
+          content += "Your browser does not support server-sent events";
+          return;
+        }
+
         const eventSource = new EventSource("/sse");
 
         eventSource.onmessage = (event) => {
-          console.log(event.data);
-          // const content = document.querySelector('.content');
-          // content.innerHTML = event.data;
+          content.innerHTML += `<br /> ${event.data}`;
         };
 
         eventSource.onerror = (error) => {
-          console.log("error", error);
           // const content = document.querySelector('.content');
           // content.innerHTML = event.data;
         };
