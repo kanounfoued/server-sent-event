@@ -6,6 +6,27 @@
     <title>Document</title>
   </head>
   <body>
-    Welcome to this page
+    <button id="sse-button">sse</button>
+    <div class="content"></div>
+
+    <script>
+      const sse_button = document.querySelector("#sse-button");
+
+      sse_button.addEventListener("click", () => {
+        const eventSource = new EventSource("/sse");
+
+        eventSource.onmessage = (event) => {
+          console.log(event.data);
+          // const content = document.querySelector('.content');
+          // content.innerHTML = event.data;
+        };
+
+        eventSource.onerror = (error) => {
+          console.log("error", error);
+          // const content = document.querySelector('.content');
+          // content.innerHTML = event.data;
+        };
+      });
+    </script>
   </body>
 </html>
